@@ -80,8 +80,8 @@ export async function deleteProduct(req: NextApiRequest, res: NextApiResponse) {
         if (req.method === 'DELETE') {
             const parsedId = GetProductSchema.safeParse(req.query);
             console.log("> server: ", parsedId);
-            if (!parsedId) return res.status(400).json({ message: "Id required" });
-            const deleted = await service.deleteById(Number(parsedId));
+            if (!parsedId.success) return res.status(400).json({ message: "Id required" });
+            const deleted = await service.deleteById(parsedId.data?.id);
             return res.status(200).json(deleted);
         }
         return res.status(405).json({ message: "Method not accepted" })

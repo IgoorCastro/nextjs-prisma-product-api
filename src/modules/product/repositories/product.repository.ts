@@ -1,10 +1,12 @@
 import { prisma } from "@/infra/prismaclient";
 import { CreateProductDto } from "../dto/createProduct.dto";
 import { UpdateProductDto } from "../dto/updateProduct.dto";
+import { Product } from "../entity/product.entity";
 
 export class ProductRepository {
     async create(data: CreateProductDto) {
-        return prisma.product.create({ data });
+        const product = new Product(data);
+        return prisma.product.create({ data: product.prismaCreate() });
     }
 
     async listAll() {
@@ -37,9 +39,10 @@ export class ProductRepository {
     }
 
     async updateProduct(id: number, data: UpdateProductDto) {
+        const product = new Product(data);
         return prisma.product.update({
             where: { id },
-            data,
+            data: product.prismaUpdate(),
         });
     }
 }

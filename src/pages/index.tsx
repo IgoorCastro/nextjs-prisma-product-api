@@ -23,9 +23,6 @@ const createProductTest = async () => {
 const deleteProductTest = async (id: number) => {
   const testDeleteFetch = await fetch(`/api/productController?id=${id}`, {
     method: 'DELETE',
-    headers: {
-      'Content-Type': 'application/json'
-    },
   });
 
   const res = await testDeleteFetch.json();
@@ -62,10 +59,10 @@ export default function Home() {
   useEffect(() => {
     const testApi = async () => {
       // createProductTest();
-      // deleteProductTest();
+      // deleteProductTest(3);
       // getAllProductsTest();
       // getProductById(3);
-      // updateProduct(3, {
+      // updateProduct(4, {
       //   name: 'Produto atualizado',
       //   price: 99.99,
       //   description: 'Descrição atualizada'
